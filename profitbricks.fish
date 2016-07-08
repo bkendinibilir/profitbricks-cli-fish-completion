@@ -87,6 +87,7 @@ complete -c profitbricks -f -n '__fish_pb_subsubcommand server create' -r -s c -
 complete -c profitbricks -f -n '__fish_pb_subsubcommand server create' -r -s r -l ram             -d 'Memory size in MB'
 complete -c profitbricks -f -n '__fish_pb_subsubcommand server create' -r      -l bootVolume      -d 'Volume ID to boot from'
 complete -c profitbricks -f -n '__fish_pb_subsubcommand server create' -r      -l bootCdrom       -d 'Drive ID to boot from'
+complete -c profitbricks -f -n '__fish_pb_subsubcommand server create'         -l cpuFamily       -d 'CPU family: AMD_OPTERON or INTEL_XEON'
 
 # server update
 complete -c profitbricks -f -n "__fish_pb_subsubcommand server update" -r      -l datacenterid     -d 'ID of datacenter'
@@ -97,6 +98,25 @@ complete -c profitbricks -f -n "__fish_pb_subsubcommand server update"    -s r -
 complete -c profitbricks -f -n "__fish_pb_subsubcommand server update"    -s a -l availabilityzone -d 'Availabilityzone'
 complete -c profitbricks -f -n '__fish_pb_subsubcommand server update'         -l bootVolume       -d 'Volume ID to boot from'
 complete -c profitbricks -f -n '__fish_pb_subsubcommand server update'         -l bootCdrom        -d 'Drive ID to boot from'
+complete -c profitbricks -f -n '__fish_pb_subsubcommand server update'         -l cpuFamily       -d 'CPU family: AMD_OPTERON or INTEL_XEON'
+
+# drives
+complete -c profitbricks -f -n '__fish_pb_no_subcommand'  -a drives -d 'CDROM drives operations'
+complete -c profitbricks -f -n '__fish_pb_subcommand drives' -a list   -d 'Show list of attached CDROM drives of a server'
+complete -c profitbricks -f -n '__fish_pb_subcommand drives' -a get    -d 'Get CDROM drive info of a server'
+complete -c profitbricks -f -n '__fish_pb_subcommand drives' -a attach -d 'Attach CDROM drive to a server'
+complete -c profitbricks -f -n '__fish_pb_subcommand drives' -a detach -d 'Detach CDROM drive from a server'
+
+# drives list
+complete -c profitbricks -f -n "__fish_pb_subsubcommand drives list" -r -l datacenterid       -d 'ID of datacenter'
+complete -c profitbricks -f -n "__fish_pb_subsubcommand drives list" -r -l serverid           -d 'ID of server'
+
+# drives get/attach/detach
+for cmd in get attach detach
+	complete -c profitbricks -f -n "__fish_pb_subsubcommand drives $cmd" -r -l datacenterid   -d 'ID of datacenter'
+	complete -c profitbricks -f -n "__fish_pb_subsubcommand drives $cmd" -r -l serverid       -d 'ID of server'
+	complete -c profitbricks -f -n "__fish_pb_subsubcommand drives $cmd" -r -s i -l id        -d 'ID of drive'
+end
 
 # nic
 complete -c profitbricks -f -n '__fish_pb_no_subcommand'  -a nic    -d 'NIC operations'
@@ -171,6 +191,9 @@ complete -c profitbricks -f -n '__fish_pb_subcommand volume' -a create -d 'Creat
 complete -c profitbricks -f -n '__fish_pb_subcommand volume' -a delete -d 'Delete Volume'
 complete -c profitbricks -f -n '__fish_pb_subcommand volume' -a attach -d 'Attach Volume to server'
 complete -c profitbricks -f -n '__fish_pb_subcommand volume' -a detach -d 'Detach Volume from server'
+
+# volume list
+complete -c profitbricks -f -n "__fish_pb_subsubcommand volume list" -r       -l serverid            -d 'ID of server to list attached volumes'
 
 # volume get/delete/update
 for cmd in get delete update
